@@ -4,9 +4,10 @@ import { AppLayout } from "./pages/_layout/app";
 import { LoginLayout } from "./pages/_layout/login";
 import { Login } from "./pages/auth/login.";
 import { ForgotPassword } from "./pages/auth/forgot-password";
-import { WaterBox } from "./pages/app/waterbox";
+import { WaterTank } from "./pages/app/watertank";
 import { NotFound } from "./not-found";
 import { LandingPage } from "./pages/app";
+import { WaterTankLayout } from "./pages/_layout/waterTank";
 
 export const router = createBrowserRouter([
   {
@@ -16,9 +17,14 @@ export const router = createBrowserRouter([
         path: "/dashboard",
         element: <DashBoard />,
       },
+    ],
+  },
+  {
+    element: <WaterTankLayout />,
+    children: [
       {
-        path: "/dashboard/water-box",
-        element: <WaterBox />,
+        path: "/dashboard/:waterTankId",
+        element: <WaterTank />,
       },
     ],
   },
