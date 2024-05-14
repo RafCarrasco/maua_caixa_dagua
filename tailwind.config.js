@@ -2,34 +2,35 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
     screens: {
-      sm: '480px',
-      md: '768px',
-      lg: '976px',
-      xl: '1440px',
+      sm: "480px",
+      md: "768px",
+      lg: "976px",
+      xl: "1440px",
     },
     fontFamily: {
-      sans: ["Apple Color Emoji", 'sans-serif'],
-      mono: ['ui-monospace', 'monospace'],
-      serif: ['Merriweather', 'serif'],
+      sans: ["Apple Color Emoji", "sans-serif"],
+      mono: ["ui-monospace", "monospace"],
+      serif: ["Merriweather", "serif"],
     },
     colors: {
-      'blue': '#1fb6ff',
-      'purple': '#7e5bef',
-      'pink': '#ff49db',
-      'orange': '#ff7849',
-      'green': '#13ce66',
-      'yellow': '#ffc82c',
-      'gray-dark': '#374B64',
-      'gray': '#8492a6',
-      'gray-light': '#d3dce6',
+      white: "#ffffff",
+      blue: "#1fb6ff",
+      purple: "#7e5bef",
+      pink: "#ff49db",
+      orange: "#ff7849",
+      green: "#13ce66",
+      yellow: "#ffc82c",
+      "gray-dark": "#374B64",
+      gray: "#8492a6",
+      "gray-light": "#d3dce6",
     },
     container: {
       center: true,
@@ -94,9 +95,9 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       boxShadow: {
-        'custom' : 'hsl(var(--ring))',
-      }
+        custom: "hsl(var(--ring))",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
