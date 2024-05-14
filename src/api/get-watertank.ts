@@ -1,19 +1,31 @@
+import { WaterTank, WaterTankLevel, WaterTanks } from "@/interface";
+import { api } from "@/lib/axios";
 
-export interface GetWaterBoxProps {
-}
-export interface GetWaterResponse {
-  result:{
-    "WaterTankLevel_1": GetWaterBoxProps,
-    "WaterTankLevel_2": GetWaterBoxProps,
-    "WaterTankLevel_3": GetWaterBoxProps,
-    "WaterTankLevel_4": GetWaterBoxProps,
-    "WaterTankLevel_5": GetWaterBoxProps,
-    "WaterTankLevel_6": GetWaterBoxProps,
-    "WaterTankLevel_7": GetWaterBoxProps,
-    "WaterTankLevel_8": GetWaterBoxProps
-  }
-}
-export async function getWaterBoxes(){
-    const response = await api.get<GetWaterResponse>('/watertanklevel',{});
 
-}
+const transformObjectToList = (
+  obj: WaterTank,
+): Array<{ level: string; data: WaterTankLevel }> => {
+  return Object.entries(obj).map(([level, data]) => ({ level, data }));
+};
+
+export const getWaterTankLevel = async (): Promise<WaterTanks> => {
+  const response = await api.get("/watertanklevel");
+  return transformObjectToList(response.data);
+};
+
+export const fetchWaterTankLevelPeriodically = (
+  updateWaterTankLevel: (data: WaterTanks) => void,
+) => {
+  const fetchWaterTankLevel = async () => {
+    try {
+      const waterTankLevel = await getWaterTankLevel();
+      updateWaterTankLevel(waterTankLevel);
+    } catch (error) {
+      console.error("Error fetching water tank level:", error);
+    }
+  };
+
+  fetchWaterTankLevel();
+  const intervalId = setInterval(fetchWaterTankLevel, 10 * 60 * 60 * 1000); // 10 horas em milissegundos
+  return intervalId;
+};

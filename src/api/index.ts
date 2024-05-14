@@ -1,4 +1,4 @@
-import { WaterTankProps } from "@/types";
+import { WaterTankProps } from "@/interface";
 import { env } from "@/env";
 import { mockedDataWaterTank } from "./mocks/get-waterbox-mock";
 
