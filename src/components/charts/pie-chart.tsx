@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 const COLORS = ["#D5D5D560"];
 
@@ -55,6 +55,7 @@ export function PercentageChart({ labelData, data }: PieChartProps) {
     <div className="h-full w-full">
       <ResponsiveContainer>
         <PieChart>
+          <Tooltip/>
           <Pie
             data={dataChart}
             fill="#1ba4c2"

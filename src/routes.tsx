@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
     element: <WaterTankLayout />,
     children: [
       {
-        path: "/dashboard/:waterTankId",
+        path: "/dashboard/:waterTankLevel",
         element: <WaterTank />,
       },
     ],

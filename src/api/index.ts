@@ -1,14 +1,21 @@
-import { WaterTankProps } from "@/interface";
+import {  WaterTanks } from "@/interface";
 import { env } from "@/env";
-import { mockedDataWaterTank } from "./mocks/get-waterbox-mock";
+import { mock } from "./mocks/get-waterbox-mock";
+import { useWaterTank } from "@/contexts/water-tank-provider";
 
-export function fetchData(): WaterTankProps[] {
+export function fetchData(): WaterTanks | [] {
+  const { waterTanks } = useWaterTank();
+  
   if (env.MODE === "development") {
-    return mockedDataWaterTank;
-  } else {
-    return [];
+    return waterTanks;
+
+  } 
+  else{
+    return mock;
+
   }
+  
 }
-export function getWaterTankById(id: string) {
-  return fetchData().find((item) => item.id === id);
+export function getWaterTankByLevel(level: string) {
+  return fetchData().find((item) => item.level === level);
 }

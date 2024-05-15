@@ -1,10 +1,10 @@
-import { WaterTank, WaterTankLevel, WaterTanks } from "@/interface";
+import { WaterTank, WaterTanks } from "@/interface";
 import { api } from "@/lib/axios";
 
 
-const transformObjectToList = (
+export const transformObjectToList = (
   obj: WaterTank,
-): Array<{ level: string; data: WaterTankLevel }> => {
+): WaterTanks => {
   return Object.entries(obj).map(([level, data]) => ({ level, data }));
 };
 
@@ -16,7 +16,7 @@ export const getWaterTankLevel = async (): Promise<WaterTanks> => {
 export const fetchWaterTankLevelPeriodically = (
   updateWaterTankLevel: (data: WaterTanks) => void,
 ) => {
-  const fetchWaterTankLevel = async () => {
+  async function fetchWaterTankLevel() {
     try {
       const waterTankLevel = await getWaterTankLevel();
       updateWaterTankLevel(waterTankLevel);

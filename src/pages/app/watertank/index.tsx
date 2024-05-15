@@ -1,41 +1,42 @@
-import { getWaterTankById } from "@/api";
+import { getWaterTankByLevel } from "@/api";
 import { AreaChartCustom } from "@/components/charts/area-chart";
 import { LineChartCustom } from "@/components/charts/line-chart";
 import { useParams } from "react-router-dom";
 
 export function WaterTank() {
   const params = useParams();
-  const waterTankId = params.waterTankId as string;
-  let waterTank = getWaterTankById(waterTankId);
+  const waterTankLevel = params.waterTankLevel as string;
+  let waterTank = getWaterTankByLevel(waterTankLevel);
 
-  if (waterTank && waterTank.data_distance && waterTank.data_temperature) {
-    const dataDistance = waterTank.data_distance.map((distance, index) => ({
+
+  if (waterTank && waterTank.data.data_distance && waterTank.data.data_temperature) {
+    const dataDistance = waterTank.data.data_distance.map((distance, index) => ({
       axisX: index,
-      axisY: distance,
+      axisY: distance.fieldValue as number,
     }));
 
-    const dataBoardVoltage = waterTank.data_boardVoltage.map(
+    const dataBoardVoltage = waterTank.data.data_boardVoltage.map(
       (boardVoltage, index) => ({
         axisX: index,
-        axisY: boardVoltage,
+        axisY: boardVoltage.fieldValue as number,
       }),
     );
 
-    const dataTemperature = waterTank.data_temperature.map(
+    const dataTemperature = waterTank.data.data_temperature.map(
       (temperature, index) => ({
         axisX: index,
-        axisY: temperature,
+        axisY: temperature.fieldValue as number,
       }),
     );
 
-    const dataCounter = waterTank.data_counter.map((distance, index) => ({
+    const dataCounter = waterTank.data.data_counter.map((distance, index) => ({
       axisX: index,
-      axisY: distance,
+      axisY: distance.fieldValue as number,
     }));
 
-    const dataHumidity = waterTank.data_humidity.map((humidity, index) => ({
+    const dataHumidity = waterTank.data.data_humidity.map((humidity, index) => ({
       axisX: index,
-      axisY: humidity,
+      axisY: humidity.fieldValue as number,
     }));
 
     return (
