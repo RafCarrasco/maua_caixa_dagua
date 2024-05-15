@@ -5,6 +5,7 @@ import { useWaterTank } from "@/contexts/water-tank-provider";
 
 export function DashBoard() {
   const { waterTanks } = useWaterTank();
+  console.log(waterTanks)
   const navigate = useNavigate();
 
   return (

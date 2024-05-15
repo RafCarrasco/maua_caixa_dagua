@@ -1,4 +1,4 @@
-import { CartesianGrid, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import {  Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { LineChart } from "recharts";
 
 interface DataItem {
@@ -34,7 +34,7 @@ export function LineChartCustom({ data, strokeColor }: LineChartProps) {
         />
 
         <YAxis
-          tick={{ fill: "#fff" }}
+       tick={{ fill: "#8884d8" }}
           tickSize={10}
           padding={{ bottom: 15, top: 15 }}
           stroke="#ffff"

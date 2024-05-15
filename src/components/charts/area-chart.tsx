@@ -32,7 +32,7 @@ export function AreaChartCustom({ data }: AreaChartProps) {
           wrapperStyle={{ backgroundColor: "transparent" }}
         />
         <YAxis
-          tick={{ fill: "#fff" }}
+          tick={{ fill: "#8884d8" }}
           fontFamily={"Roboto, sans-serif"}
           tickSize={10}
           padding={{ bottom: 0, top: 15 }}
