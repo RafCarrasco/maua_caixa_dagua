@@ -37,16 +37,18 @@ export function CustomizedLabel({ viewBox, value }: CustomizeLabelProps) {
 }
 
 export function PercentageChart({ labelData, data }: PieChartProps) {
-  const filledValue = (data[0].value / 100) * 360;
+  // assumindo que a amplitude do tanque seja de 4000 militmetros
+  const maxValue = 4000;
+  const filledValue = (maxValue/ 100) * 360;
   const remainedValue = 360 - data[0].value;
 
   const dataChart = [
     {
-      name: "Remained",
-      value: remainedValue,
+      name: "Restante",
+      value: `${remainedValue}%`,
     },
     {
-      name: data[0].name,
+      name: 'Atual',
       value: filledValue,
     },
   ];
