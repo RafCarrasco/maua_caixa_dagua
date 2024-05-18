@@ -2,13 +2,13 @@ import { RouterProvider } from "react-router-dom";
 import "./globals.css";
 import { router } from "./routes";
 import { ThemeProvider } from "./components/theme/theme-provider";
-import { WaterTankProvider } from "./contexts/water-tank-provider";
+import { ApplicationProvider } from "./contexts";
 export function App() {
   return (
     <ThemeProvider defaultTheme="light" storageKey="front-theme">
-      <WaterTankProvider>
+      <ApplicationProvider>
         <RouterProvider router={router} />
-      </WaterTankProvider>
+      </ApplicationProvider>
     </ThemeProvider>
   );
 }
