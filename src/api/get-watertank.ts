@@ -1,25 +1,17 @@
-import { WaterTank, WaterTanks } from "@/interface";
+import { adaptResponseWaterTankLevel, WaterTankLevel } from "@/interface";
 import { api } from "@/lib/axios";
 
-
-export const transformObjectToList = (
-  obj: WaterTank,
-): WaterTanks => {
-  return Object.entries(obj).map(([level, data]) => ({ level, data }));
-};
-
-export const getWaterTankLevel = async (): Promise<WaterTanks> => {
-  const response = await api.get("/watertanklevel");
-  return transformObjectToList(response.data);
+export const getWaterTankLevel = async (): Promise<WaterTankLevel[]> => {
+  const response = await api.get("/WaterTanks");
+  return adaptResponseWaterTankLevel(response.data);
 };
 
 export const fetchWaterTankLevelPeriodically = (
-  updateWaterTankLevel: (data: WaterTanks) => void,
+  updateWaterTankLevel: (data: WaterTankLevel[]) => void,
 ) => {
   async function fetchWaterTankLevel() {
     try {
-      const waterTankLevel = await getWaterTankLevel();
-      updateWaterTankLevel(waterTankLevel);
+      updateWaterTankLevel (await getWaterTankLevel());
     } catch (error) {
       console.error("Error fetching water tank level:", error);
     }
