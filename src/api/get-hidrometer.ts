@@ -1,9 +1,14 @@
-import { Hidrometer, adaptResponseHidrometer } from "@/interface";
+import { env } from "@/env";
 import { api } from "@/lib/axios";
+import { mockHidrometers } from "./mocks/get-hidrometer";
+import { Hidrometer } from "@/pages/app/entity/hidrometer";
 
 export const getHidrometer = async (): Promise<Hidrometer[]> => {
-  const response = await api.get("/Hidrometers");
-  return adaptResponseHidrometer(response.data);
+  if (env.MODE !== "development") {
+    const response = await api.get("/Hidrometers");
+    return Hidrometer.adaptResponseHidrometer(response.data);
+  }
+  return mockHidrometers;
 };
 
 export const fetchHidrometerPeriodically = (

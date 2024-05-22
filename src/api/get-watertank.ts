@@ -1,9 +1,14 @@
-import { adaptResponseWaterTankLevel, WaterTankLevel } from "@/interface";
+import { env } from "@/env";
 import { api } from "@/lib/axios";
+import { mockWaterTanks } from "./mocks/get-waterbox-mock";
+import { WaterTankLevel } from "@/pages/app/entity/water-tank-level";
 
 export const getWaterTankLevel = async (): Promise<WaterTankLevel[]> => {
-  const response = await api.get("/WaterTanks");
-  return adaptResponseWaterTankLevel(response.data);
+  if (env.MODE !== "development") {
+    const response = await api.get("/WaterTanks");
+    return WaterTankLevel.adaptResponseWaterTankLevel(response.data);
+  }
+  return mockWaterTanks;
 };
 
 export const fetchWaterTankLevelPeriodically = (
@@ -11,7 +16,7 @@ export const fetchWaterTankLevelPeriodically = (
 ) => {
   async function fetchWaterTankLevel() {
     try {
-      updateWaterTankLevel (await getWaterTankLevel());
+      updateWaterTankLevel(await getWaterTankLevel());
     } catch (error) {
       console.error("Error fetching water tank level:", error);
     }
