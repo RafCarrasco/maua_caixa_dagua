@@ -2,6 +2,7 @@ import { AreaChartProps } from "@/interface/charts-data-type";
 import {
   Area,
   CartesianGrid,
+  Legend,
   ResponsiveContainer,
   Tooltip,
   XAxis,

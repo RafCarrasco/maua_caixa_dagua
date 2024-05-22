@@ -26,7 +26,7 @@ export function ManagerDashboard() {
   });
 
   return (
-    <div className="flex h-[120vh] w-full flex-col justify-between gap-6 pt-6">
+    <div className="flex h-fit flex-col justify-between gap-6 pt-6">
       <div className="m-auto flex h-72 w-3/5 flex-col items-center gap-4">
         <h1 className="text-3xl font-bold">Pressure In/Out Chart</h1>
         <WaterTanksCustom data={waterTankDataDistances} />
@@ -48,16 +48,21 @@ export function ManagerDashboard() {
               key={hidrometer.hidrometerId}
               className="flex h-full flex-col rounded-xl border-0 shadow-lg shadow-ring transition-shadow duration-300"
             >
-              <CardHeader className="mt-0 flex flex-row justify-around space-y-0 rounded-t-xl bg-gray-dark p-4 align-top shadow-sm">
-                <h3 className="text-blue-50 text-center text-lg capitalize text-white">
+              <CardHeader className="mt-0 flex flex-col justify-around space-y-0 rounded-t-xl bg-gray-dark p-4 align-top shadow-sm">
+                <h3 className="text-blue-50 text-center text-sm capitalize text-white font-bold ">
                   {hidrometer.hidrometerId}
                 </h3>
-                <h3 className="text-red-300 text-center  capitalize text-white">
+                <h3 className="text-red-300 text-center  capitalize text-white text-md ">
                   Grafico Litros Acumulados
                 </h3>
               </CardHeader>
-              <CardContent className="flex h-[20rem] w-full items-center justify-center p-6">
-                <AreaChartCustom areaChartData={dataCounter} />
+              <CardContent className="flex  w-full h-fit items-center justify-around flex-col">
+                <span className="flex text-md">
+                  Litros/Minuto
+                </span>
+                <div className="pr-10">
+                  <AreaChartCustom areaChartData={dataCounter} chartWidth={300} chartHeight={150} />
+                </div>
               </CardContent>
             </div>
           );
