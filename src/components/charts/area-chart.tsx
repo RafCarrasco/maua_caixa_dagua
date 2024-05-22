@@ -1,5 +1,7 @@
+import { AreaChartProps } from "@/interface/charts-data-type";
 import {
   Area,
+  CartesianGrid,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -7,21 +9,22 @@ import {
 } from "recharts";
 import { AreaChart } from "recharts";
 
-interface DataItem {
-  axisX?: number;
-  axisY?: number;
-}
-interface AreaChartProps {
-  data: DataItem[];
-}
-export function AreaChartCustom({ data }: AreaChartProps) {
+export function AreaChartCustom({
+  areaChartData,
+  chartHeight,
+  chartWidth,
+}: AreaChartProps) {
   return (
-    <ResponsiveContainer>
-      <AreaChart data={data}>
+    <ResponsiveContainer height={chartHeight} width={chartWidth}>
+      <AreaChart data={areaChartData}>
+        <CartesianGrid strokeDasharray={"3 3"} />
         <XAxis
           dataKey="axisX"
+          type="category"
           tick={{ fill: "#8884d8" }}
-          tickSize={10}
+          spacing={10}
+          tickMargin={15}
+          tickSize={5}
           padding={{ left: 15, right: 15 }}
           stroke="#ffff"
           strokeOpacity={0.5}
@@ -33,7 +36,6 @@ export function AreaChartCustom({ data }: AreaChartProps) {
         />
         <YAxis
           tick={{ fill: "#8884d8" }}
-          fontFamily={"Roboto, sans-serif"}
           tickSize={10}
           padding={{ bottom: 0, top: 15 }}
           stroke="#ffff"

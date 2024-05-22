@@ -1,6 +1,7 @@
-import { LineChartProps } from "@/interface";
+import { LineChartProps, PressureChartProps } from "@/interface";
 import {
   CartesianGrid,
+  Legend,
   Line,
   ResponsiveContainer,
   Tooltip,
@@ -9,16 +10,16 @@ import {
 } from "recharts";
 import { LineChart } from "recharts";
 
-export function LineChartCustom({
-  lineChartData,
-  strokeColor,
-}: LineChartProps) {
+export function PressureChart({
+  strokeColorPressureIn,
+  strokeColorPressureOut,
+  pressureChartData,
+}: PressureChartProps) {
   return (
     <ResponsiveContainer>
       <LineChart
-        width={500}
-        height={300}
-        data={lineChartData}
+        width={400}
+        data={pressureChartData}
         margin={{
           top: 5,
           right: 30,
@@ -26,8 +27,10 @@ export function LineChartCustom({
           bottom: 5,
         }}
       >
-        <CartesianGrid />
+        <Tooltip />
+        <Legend />
 
+        <CartesianGrid />
         <XAxis
           dataKey="axisX"
           tick={{ fill: "#8884d8" }}
@@ -46,13 +49,21 @@ export function LineChartCustom({
           strokeOpacity={0.5}
           strokeWidth={2}
         />
-        <Tooltip />
 
         <Line
           type="monotone"
-          dataKey="axisY"
+          dataKey="pressure_in"
           data
-          stroke={strokeColor}
+          stroke={strokeColorPressureIn}
+          isAnimationActive
+          activeDot={{ r: 8 }}
+          dot={{ r: 4 }}
+        />
+        <Line
+          type="monotone"
+          dataKey="pressure_out"
+          data
+          stroke={strokeColorPressureOut}
           isAnimationActive
           activeDot={{ r: 8 }}
           dot={{ r: 4 }}

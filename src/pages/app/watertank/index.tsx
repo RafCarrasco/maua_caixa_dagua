@@ -1,54 +1,120 @@
 import { getHidrometerById, getWaterTankById } from "@/api";
 import { AreaChartCustom } from "@/components/charts/area-chart";
+import { Button } from "@/components/ui/button";
 import { useParams } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export function WaterTank() {
   const params = useParams();
   const route = params.waterTankId as string;
   let routeValues = route.split("-");
-  
+
   let waterTankLevelId = routeValues[0];
   let hidrometerId = routeValues[1];
 
   let waterTank = getWaterTankById(waterTankLevelId);
   let hidrometer = getHidrometerById(hidrometerId);
 
-  let hasHidrometer = hidrometer && hidrometer.data_counter
-  let hasWaterTank = waterTank && waterTank.data_distance
+  let hasHidrometer = hidrometer && hidrometer.data_counter;
+  let hasWaterTank = waterTank && waterTank.data_distance;
 
   if (hasHidrometer && hasWaterTank) {
-    const dataCounter = hidrometer!.data_counter.map((counter, index) => ({
-      axisX: index,
-      axisY: counter.fieldValue as number,
-    }));
-    const dataDistance = waterTank!.data_distance.map((distance, index) => ({
-      axisX: index,
-      axisY: distance.fieldValue as number,
-    }));
+    const dataDistance = waterTank!.data_distance.map((distance, _) => {
+      const date = new Date(distance.timestamp);
+      const hours = date.getUTCHours().toString().padStart(2, "0");
+      const minutes = date.getUTCMinutes().toString().padStart(2, "0");
+      return {
+        axisX: `${hours}:${minutes}`,
+        axisY: distance.fieldValue as number,
+      };
+    });
 
     const dataBoardVoltage = waterTank!.data_boardVoltage.map(
-      (boardVoltage, index) => ({
-        axisX: index,
-        axisY: boardVoltage.fieldValue as number,
-      }),
+      (boardVoltage, _) => {
+        const date = new Date(boardVoltage.timestamp);
+        const hours = date.getUTCHours().toString().padStart(2, "0");
+        const minutes = date.getUTCMinutes().toString().padStart(2, "0");
+        return {
+          axisX: `${hours}:${minutes}`,
+          axisY: boardVoltage.fieldValue as number,
+        };
+      },
     );
-    
+
     return (
       <>
-        <div className="grid h-1/2 w-full grid-cols-3 grid-rows-2 gap-y-8  p-4 pt-0">
-          <div className="flex flex-col items-center justify-center gap-2 border-r-2 border-border">
-            <span className="text-md">Grafico Data_BoardVoltage</span>
+        <div className="flex h-[120vh] w-full flex-col  items-center justify-around gap-12">
+          <div className="m-auto flex w-full flex-col items-center justify-center gap-2">
+            <span className="pb-4 text-4xl font-bold">Hidrometer</span>
+            <div className="flex items-center justify-center gap-4">
+              <DropdownMenu>
+                <Button className="text-md w-full rounded-md border-2 px-12 py-2">
+                  {" "}
+                  <DropdownMenuTrigger>
+                    Definir Intervalo de Tempo
+                  </DropdownMenuTrigger>
+                </Button>
 
-            <AreaChartCustom data={dataBoardVoltage} />
+                <DropdownMenuContent>
+                  <DropdownMenuLabel> Intervalo em Dias</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>1</DropdownMenuItem>
+                  <DropdownMenuItem>3</DropdownMenuItem>
+                  <DropdownMenuItem>7</DropdownMenuItem>
+                  <DropdownMenuItem>10</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
-          <div className="flex flex-col items-center justify-center gap-2 border-r-2 border-border">
-            <span className="text-md">Grafico Data_Distance</span>
 
-            <AreaChartCustom data={dataDistance} />
+          <div className="flex flex-col items-center justify-center gap-2 border-b-2 p-4  ">
+            <span className="text-md">Grafico Board_Voltage</span>
+            <AreaChartCustom
+              areaChartData={dataBoardVoltage}
+              chartHeight={500}
+              chartWidth={500}
+            />
           </div>
-          <div className="flex flex-col items-center justify-center gap-2 border-border">
-            <span className="text-md">Grafico Data_Counter</span>
-            <AreaChartCustom data={dataCounter} />
+
+          <div className="m-auto flex w-full flex-col items-center justify-center gap-2">
+            <span className="pb-4 text-4xl font-bold">WaterTank</span>
+            <div className="flex items-center justify-center gap-4">
+              <DropdownMenu>
+                <Button className="text-md w-full rounded-md border-2 px-12 py-2 shadow-sm">
+                  {" "}
+                  <DropdownMenuTrigger>
+                    Definir Intervalo de Tempo
+                  </DropdownMenuTrigger>
+                </Button>
+
+                <DropdownMenuContent>
+                  <DropdownMenuLabel> Intervalo em Dias</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>1</DropdownMenuItem>
+                  <DropdownMenuItem>3</DropdownMenuItem>
+                  <DropdownMenuItem>7</DropdownMenuItem>
+                  <DropdownMenuItem>10</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
+          <div className="flex flex-col items-center justify-center gap-2 border-b-2 p-4">
+            <span className="text-md">
+              Grafico Data_Distance(Milimetros de Distância da Água)
+            </span>
+
+            <AreaChartCustom
+              areaChartData={dataDistance}
+              chartHeight={500}
+              chartWidth={500}
+            />
           </div>
         </div>
       </>

@@ -1,24 +1,7 @@
+import { CustomizeLabelProps, PieChartProps } from "@/interface";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
-const COLORS = ["#D5D5D560"];
-
-interface DataItem {
-  name: string;
-  value: number;
-}
-
-interface CustomizeLabelProps {
-  viewBox: {
-    cx: string;
-    cy: string;
-  };
-  value: number;
-}
-
-interface PieChartProps {
-  labelData: CustomizeLabelProps;
-  data: DataItem[];
-}
+const COLORS = ["#D5D5D5DB", "#0F8FE4"];
 
 export function CustomizedLabel({ viewBox, value }: CustomizeLabelProps) {
   const { cx, cy } = viewBox;
@@ -28,7 +11,7 @@ export function CustomizedLabel({ viewBox, value }: CustomizeLabelProps) {
       y={cy}
       className="text text-2xl font-bold"
       textAnchor="middle"
-      color="#1ba4c2"
+      fill="#1ba4c2"
       dominantBaseline="central"
     >
       {value}%
@@ -36,49 +19,59 @@ export function CustomizedLabel({ viewBox, value }: CustomizeLabelProps) {
   );
 }
 
-export function PercentageChart({ labelData, data }: PieChartProps) {
-  // assumindo que a amplitude do tanque seja de 4000 militmetros
-  const maxValue = 4000;
-  const filledValue = (maxValue/ 100) * 360;
-  const remainedValue = 360 - data[0].value;
+export function PercentageChart({ pieChartData }: PieChartProps) {
+  const maxValue = 5500;
+  const filledValue = Math.round((pieChartData[0].value / maxValue) * 100);
+  const remainedValue = 100 - filledValue;
 
   const dataChart = [
     {
       name: "Restante",
-      value: `${remainedValue}%`,
+      value: remainedValue,
     },
     {
-      name: 'Atual',
+      name: "Atual",
       value: filledValue,
     },
   ];
 
+  const renderCustomizedLabel = ({ cx, cy }: { cx: number; cy: number }) => {
+    return (
+      <text
+        x={cx}
+        y={cy}
+        fill="#0F8FE4"
+        textAnchor="middle"
+        dominantBaseline="central"
+        className="text-2xl font-bold"
+      >
+        {filledValue}%
+      </text>
+    );
+  };
+
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-1/2">
       <ResponsiveContainer>
         <PieChart>
-          <Tooltip/>
+          <Tooltip />
           <Pie
+            label={renderCustomizedLabel}
+            labelLine={false}
             data={dataChart}
-            fill="#1ba4c2"
             outerRadius={80}
             innerRadius={60}
-            paddingAngle={5}
+            paddingAngle={10}
             dataKey="value"
             startAngle={90}
             endAngle={-270}
-            blendStroke
           >
-            {data.map((_, index) => (
+            {dataChart.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}
               />
             ))}
-            <CustomizedLabel
-              viewBox={labelData.viewBox}
-              value={labelData.value}
-            />
           </Pie>
         </PieChart>
       </ResponsiveContainer>

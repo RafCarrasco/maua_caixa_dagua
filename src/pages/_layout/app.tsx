@@ -5,7 +5,7 @@ export function AppLayout(){
     return (
         <div className="flex h-screen flex-col gap-4 font-medium tracking-wide text-slate-50">
            <Header headerTitle="Visão Geral"/>
-            <div className="flex flex-col items-center justify-center p-16 w-full h-full">
+            <div className="flex flex-col items-center justify-center w-full h-full mt-10">
                 <Outlet />
             </div>
         </div>

@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Mail, Key } from "lucide-react";
 import { CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CardContainer } from "./components/card-container";
 import { CardHeaderContainer } from "./components/card-header";
 import { CardContentContainer } from "./components/card-content";
@@ -10,24 +11,41 @@ import { CardFooterContainer } from "./components/card-footer";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { CustomInput } from "./components/custom-input";
+import { useAuth } from "@/contexts/auth";
 
 const validationSchema = z.object({
-  email: z.string().email(),
+  username: z.string().email(),
   password: z.string(),
 });
 
 type ValidationSchema = z.infer<typeof validationSchema>;
 
 export function Login() {
-  const { register, handleSubmit } = useForm({
+  const [error, setError] = useState<string | null>(null);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const navigator = useNavigate();
+  const { signIn } = useAuth();
+  const { register, handleSubmit } = useForm<ValidationSchema>({
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
 
-  function onSubmit(submit: ValidationSchema) {
-    console.log(submit);
+  async function onSubmit(submit: ValidationSchema) {
+    setButtonDisabled(true);
+    try {
+      await signIn(submit.username, submit.password);
+      setError(null);
+      navigator("/dashboard");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred.");
+      }
+    }
+    setButtonDisabled(false);
   }
 
   return (
@@ -41,12 +59,13 @@ export function Login() {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-stretch gap-8"
         >
+          {error && <div className="text-red-500 text-center">{error}</div>}
           <div className="flex items-center gap-2 space-x-4">
             <Label htmlFor="email" className="text-lg">
               <Mail size={24} />
             </Label>
             <CustomInput
-              {...register("email", { required: true })}
+              {...register("username", { required: true })}
               id="email"
               type="email"
               placeholder="joao@exemplo.com"
@@ -67,8 +86,9 @@ export function Login() {
             />
           </div>
           <Button
+            disabled={buttonDisabled}
             type="submit"
-            className="text-md w-full font-bold shadow-sm shadow-gray-light "
+            className="text-md w-full font-bold"
           >
             Entrar
           </Button>

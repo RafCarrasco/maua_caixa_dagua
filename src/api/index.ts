@@ -4,38 +4,50 @@ import { mockWaterTanks } from "./mocks/get-waterbox-mock";
 import { mockHidrometers } from "./mocks/get-hidrometer";
 import { mockArtesianWells } from "./mocks/get-artesian-well";
 import { useApplication } from "@/contexts";
+import { login, LoginResponseProps } from "./login";
+import { WaterTankLevel } from "@/pages/app/entity/water-tank-level";
+import { Hidrometer } from "@/pages/app/entity/hidrometer";
+import { ArtesianWell } from "@/pages/app/entity/artesian-well";
 
 export function fetchData(): mockProps {
-  const { artesianWells, hidrometers, waterTanks } = useApplication();
-
   if (env.MODE === "development") {
     return {
-      artesianWell: artesianWells,
-      hidrometer: hidrometers,
-      waterTank: waterTanks
+      waterTanks: mockWaterTanks,
+      artesianWell: mockArtesianWells,
+      hidrometers: mockHidrometers,
     };
-
   }
   else {
+    const { artesianWells, hidrometers, waterTanks } = useApplication();
     return {
-      waterTank: mockWaterTanks,
-      artesianWell: mockArtesianWells,
-      hidrometer: mockHidrometers,
+      artesianWell: artesianWells,
+      hidrometers: hidrometers,
+      waterTanks: waterTanks
     };
 
   }
 
 }
-export function getWaterTankById(waterTankId: string) {
-  return fetchData().waterTank.find((waterTank) => waterTank.watertTankId === waterTankId);
+export async function loginUser(email: string, password: string): Promise<LoginResponseProps | undefined> {
+  if (env.MODE === "development") {
+    return {
+      username: "admin",
+      isAdmin: true,
+      email: "admin@admin",
+    };
+  }
+  else {
+    return await login({ username: email, password: password });
+  }
+}
+export function getWaterTankById(waterTankId: string): WaterTankLevel | undefined {
+  return fetchData().waterTanks.find((waterTank) => waterTank.watertTankId === waterTankId);
 }
 
-export function getHidrometerById(hidrometerId: string) {
-  return fetchData().hidrometer.find((hidrometer) => hidrometer.hidrometerId === hidrometerId);
+export function getHidrometerById(hidrometerId: string): Hidrometer | undefined {
+  return fetchData().hidrometers.find((hidrometer) => hidrometer.hidrometerId === hidrometerId);
 }
 
-export function getArtesianWellById(artesianWellId: string) {
+export function getArtesianWellById(artesianWellId: string): ArtesianWell | undefined {
   return fetchData().artesianWell.find((artesianWell) => artesianWell.artesianWellId === artesianWellId);
 }
-
-

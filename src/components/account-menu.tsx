@@ -8,6 +8,7 @@ import {
 } from "./ui/dropdown-menu";
 import { Dialog } from "./ui/dialog";
 import { useNavigate } from "react-router-dom";
+import { logout } from "@/api/sign-out";
 
 export function AccountMenu() {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ export function AccountMenu() {
               }}
             >
               <LogOut className="mr-2 h-4 w-4" />
-              <span>Sair</span>
+              <span onClick={() => logout()}>Sair</span>
             </button>
           </DropdownMenuItem>
         </DropdownMenuContent>

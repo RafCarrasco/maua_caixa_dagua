@@ -1,7 +1,9 @@
-import { WaterTankLevel,ArtesianWell, Hidrometer } from "@/interface/data-type";
+import { ArtesianWell } from "@/pages/app/entity/artesian-well";
+import { Hidrometer } from "@/pages/app/entity/hidrometer";
+import { WaterTankLevel } from "@/pages/app/entity/water-tank-level";
 
 export interface mockProps {
-    waterTank:  WaterTankLevel[],
-    hidrometer: Hidrometer[],
+    waterTanks: WaterTankLevel[],
+    hidrometers: Hidrometer[],
     artesianWell: ArtesianWell[]
 }

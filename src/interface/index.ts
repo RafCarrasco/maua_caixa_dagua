@@ -1,1 +1,1 @@
-export * from "./data-type";
+export * from "./charts-data-type";
