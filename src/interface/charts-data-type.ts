@@ -5,8 +5,6 @@ export interface DataItem {
 
 export interface AreaChartProps {
     areaChartData: DataItem[];
-    chartHeight?: number;
-    chartWidth?: number;
 }
 
 export interface LineChartProps {
@@ -35,13 +33,12 @@ export interface PieChartProps {
 
 
 export interface DataItemPressure {
-    pressure_in?: number;
-    pressure_out?: number;
+    pressao_in_bar?: number;
+    pressao_out_bar?: number;
+    axisX?: string;
 }
 
 export interface PressureChartProps {
-    strokeColorPressureIn: string;
-    strokeColorPressureOut: string;
     pressureChartData: DataItemPressure[];
 }
 

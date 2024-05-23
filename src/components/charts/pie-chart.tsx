@@ -51,22 +51,22 @@ export function PercentageChart({ pieChartData }: PieChartProps) {
   };
 
   return (
-    <div className="h-full w-1/2">
-      <ResponsiveContainer>
+    <div className="w-full h-full">
+      <ResponsiveContainer width="100%" height="100%"  >
         <PieChart>
           <Tooltip />
           <Pie
             label={renderCustomizedLabel}
             labelLine={false}
             data={dataChart}
-            outerRadius={80}
-            innerRadius={60}
+            outerRadius={90}
+            innerRadius={65}
             paddingAngle={10}
             dataKey="value"
             startAngle={90}
             endAngle={-270}
           >
-            {dataChart.map((entry, index) => (
+            {dataChart.map((_, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}

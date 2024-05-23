@@ -1,24 +1,19 @@
-import { LineChartProps, PressureChartProps } from "@/interface";
+import { PressureChartProps } from "@/interface";
 import {
+  Bar,
+  BarChart,
   CartesianGrid,
   Legend,
-  Line,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
-import { LineChart } from "recharts";
 
-export function PressureChart({
-  strokeColorPressureIn,
-  strokeColorPressureOut,
-  pressureChartData,
-}: PressureChartProps) {
+export function PressureChart({ pressureChartData }: PressureChartProps) {
   return (
-    <ResponsiveContainer>
-      <LineChart
-        width={400}
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart
         data={pressureChartData}
         margin={{
           top: 5,
@@ -26,49 +21,22 @@ export function PressureChart({
           left: 20,
           bottom: 5,
         }}
+        barSize={30}
       >
-        <Tooltip />
-        <Legend />
-
-        <CartesianGrid />
         <XAxis
           dataKey="axisX"
-          tick={{ fill: "#8884d8" }}
-          tickSize={10}
-          padding={{ left: 15, right: 15 }}
-          stroke="#ffff"
-          strokeOpacity={0.5}
-          strokeWidth={2}
+          type="category"
+          tickMargin={5}
+          axisType="xAxis"
+          padding={{ left: 20, right: 20 }}
         />
-
-        <YAxis
-          tick={{ fill: "#8884d8" }}
-          tickSize={10}
-          padding={{ bottom: 15, top: 15 }}
-          stroke="#ffff"
-          strokeOpacity={0.5}
-          strokeWidth={2}
-        />
-
-        <Line
-          type="monotone"
-          dataKey="pressure_in"
-          data
-          stroke={strokeColorPressureIn}
-          isAnimationActive
-          activeDot={{ r: 8 }}
-          dot={{ r: 4 }}
-        />
-        <Line
-          type="monotone"
-          dataKey="pressure_out"
-          data
-          stroke={strokeColorPressureOut}
-          isAnimationActive
-          activeDot={{ r: 8 }}
-          dot={{ r: 4 }}
-        />
-      </LineChart>
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <CartesianGrid strokeDasharray="3 3" />
+        <Bar dataKey="pressao_in_bar" fill="#8884d8" />
+        <Bar dataKey="pressao_out_bar" fill="#82ca9e" />
+      </BarChart>
     </ResponsiveContainer>
   );
 }

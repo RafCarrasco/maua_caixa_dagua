@@ -32,11 +32,13 @@ const convertMinutesToTime = (minutes: number): string => {
 };
 
 export function WaterTanksCustom({ data }: WaterTanksProps) {
+  console.log(data)
   const allXValues = data
     .flat()
     .map((item) => convertTimeToMinutes(item.axisX || "00:00"));
   const minX = Math.min(...allXValues);
   const maxX = Math.max(...allXValues);
+  console.log(minX,maxX)
   return (
     <ResponsiveContainer width="100%">
       <LineChart
@@ -52,7 +54,7 @@ export function WaterTanksCustom({ data }: WaterTanksProps) {
 
         <XAxis
           type="number"
-          // domain={[minX, maxX]}
+          domain={[minX,maxX]}
           tick={{ fill: "#8884d8" }}
           tickSize={10}
           padding={{ left: 15, right: 15 }}

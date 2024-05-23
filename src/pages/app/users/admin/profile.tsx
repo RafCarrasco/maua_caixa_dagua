@@ -48,7 +48,7 @@ export function AdminProfile() {
       <div className="flex h-full flex-col items-center justify-around">
         <form
           action="POST"
-          className="flex flex-col items-center space-y-12 rounded-md p-4 shadow-md shadow-ring"
+          className="flex flex-col items-center space-y-12 rounded-md px-4 py-8 shadow-md shadow-ring"
           onSubmit={handleSubmit(onSubmit)}
         >
           <Input
@@ -74,8 +74,11 @@ export function AdminProfile() {
             Adicionar Nova Caixa d'Água
           </Button>
         </form>
-        <Button onClick={() => navigator("/dashboard/admin/manager-dashboard")}>
-          Ir para Dashboard
+        <Button
+          onClick={() => navigator("/dashboard/admin/manager-dashboard")}
+          className="text-md flex items-center justify-center px-12 font-bold"
+        >
+          Navegar para Dashboard
         </Button>
       </div>
     </>

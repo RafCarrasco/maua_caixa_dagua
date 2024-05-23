@@ -3,9 +3,9 @@ import { Header } from "../auth/header";
 
 export function LoginLayout() {
   return (
-    <div className="  flex h-screen flex-col">
+    <div className="text-slate-50 flex h-screen flex-col gap-24 font-medium tracking-wide">
       <Header />
-      <div className=" flex flex-1 items-center justify-center mt-10 pr-10 pl-10">
+      <div className=" mt-10 flex flex-1 items-center justify-center pl-10 pr-10">
         <Outlet />
       </div>
     </div>

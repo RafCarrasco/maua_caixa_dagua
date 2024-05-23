@@ -76,11 +76,7 @@ export function WaterTank() {
 
           <div className="flex flex-col items-center justify-center gap-2 border-b-2 p-4  ">
             <span className="text-md">Grafico Board_Voltage</span>
-            <AreaChartCustom
-              areaChartData={dataBoardVoltage}
-              chartHeight={500}
-              chartWidth={500}
-            />
+            <AreaChartCustom areaChartData={dataBoardVoltage} />
           </div>
 
           <div className="m-auto flex w-full flex-col items-center justify-center gap-2">
@@ -110,11 +106,7 @@ export function WaterTank() {
               Grafico Data_Distance(Milimetros de Distância da Água)
             </span>
 
-            <AreaChartCustom
-              areaChartData={dataDistance}
-              chartHeight={500}
-              chartWidth={500}
-            />
+            <AreaChartCustom areaChartData={dataDistance} />
           </div>
         </div>
       </>

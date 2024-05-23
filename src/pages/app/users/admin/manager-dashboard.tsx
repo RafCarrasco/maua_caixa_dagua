@@ -1,37 +1,47 @@
 import { AreaChartCustom } from "@/components/charts/area-chart";
-import { WaterTanksCustom } from "@/components/charts/watertanks-chart";
+import { PressureChart } from "@/components/charts/pressure_chart";
 import { CardHeader, CardContent } from "@/components/ui/card";
-import { DataItem } from "@/interface";
+import { DataItemPressure } from "@/interface";
 import { useLoaderDataProps } from "@/routes";
 import { useLoaderData } from "react-router-dom";
+import { DataPoint } from "../../entity/data-points";
 
 export function ManagerDashboard() {
-  const { waterTanks, hidrometers } = useLoaderData() as useLoaderDataProps;
+  const { hidrometers, artesianWell } = useLoaderData() as useLoaderDataProps;
 
-  const waterTankDataDistances: DataItem[][] = [];
+  // waterTanks!.forEach((waterTank) => {
+  //   let dataPoints: DataItem[] = [];
 
-  waterTanks!.forEach((waterTank) => {
-    let dataPoints: DataItem[] = [];
+  //   waterTank.data_distance.forEach((distance, index) => {
+  //     dataPoints.push({
+  //       axisX: `${waterTank.watertTankId}`,
+  //       axisY: distance.fieldValue as number,
+  //     });
+  //   });
+  //   waterTankDataDistances.push(dataPoints);
+  // });
 
-    waterTank.data_distance.forEach((distance, index) => {
-      const date = new Date(distance.timestamp);
+  let artesianData: DataItemPressure[] = artesianWell![0].data_pressure_0.map(
+    (item: DataPoint, index: number) => {
+      const date = new Date(item.timestamp);
       const hours = date.getUTCHours().toString().padStart(2, "0");
       const minutes = date.getUTCMinutes().toString().padStart(2, "0");
-      dataPoints.push({
-        axisX: index.toString(),
-        axisY: distance.fieldValue as number,
-      });
-    });
-    waterTankDataDistances.push(dataPoints);
-  });
+      return {
+        axisX: `${hours}:${minutes}`,
+        pressao_in_bar: item.fieldValue as number,
+        pressao_out_bar: artesianWell![0].data_pressure_1[index]
+          .fieldValue as number,
+      };
+    },
+  );
 
   return (
     <div className="flex h-fit flex-col justify-between gap-6 pt-6">
-      <div className="m-auto flex h-72 w-3/5 flex-col items-center gap-4">
-        <h1 className="text-3xl font-bold">Pressure In/Out Chart</h1>
-        <WaterTanksCustom data={waterTankDataDistances} />
+      <div className="flex h-full w-full  flex-col items-center justify-center gap-4">
+        <h1 className="text-3xl font-bold">Pressão Entrada x Saída</h1>
+        <PressureChart pressureChartData={artesianData} />
       </div>
-      <div className="mt-6 grid h-[80%] w-full gap-10 p-4 md:grid-cols-2 md:grid-rows-4 md:gap-y-8 lg:grid-cols-4 lg:grid-rows-2">
+      <div className=" grid h-full w-full gap-10 p-4 md:grid-cols-2 md:grid-rows-4 md:gap-y-8 lg:grid-cols-4 lg:grid-rows-2">
         {hidrometers?.map((hidrometer) => {
           const dataCounter = hidrometer!.data_counter.map((counter, _) => {
             const date = new Date(counter.timestamp);
@@ -46,22 +56,20 @@ export function ManagerDashboard() {
           return (
             <div
               key={hidrometer.hidrometerId}
-              className="flex h-full flex-col rounded-xl border-0 shadow-lg shadow-ring transition-shadow duration-300"
+              className="flex h-full w-full flex-col rounded-xl border-0 shadow-lg shadow-ring transition-shadow duration-300"
             >
               <CardHeader className="mt-0 flex flex-col justify-around space-y-0 rounded-t-xl bg-gray-dark p-4 align-top shadow-sm">
-                <h3 className="text-blue-50 text-center text-sm capitalize text-white font-bold ">
+                <h3 className="text-blue-50 text-center text-sm font-bold capitalize text-white ">
                   {hidrometer.hidrometerId}
                 </h3>
-                <h3 className="text-red-300 text-center  capitalize text-white text-md ">
+                <h3 className="text-red-300 text-md  text-center capitalize text-white ">
                   Grafico Litros Acumulados
                 </h3>
               </CardHeader>
-              <CardContent className="flex  w-full h-fit items-center justify-around flex-col">
-                <span className="flex text-md">
-                  Litros/Minuto
-                </span>
-                <div className="pr-10">
-                  <AreaChartCustom areaChartData={dataCounter} chartWidth={300} chartHeight={150} />
+              <CardContent className="flex h-[20rem] w-full flex-col items-center justify-around p-0">
+                <span className="text-md flex">Litros/Minuto</span>
+                <div className="h-full w-full pr-4">
+                  <AreaChartCustom areaChartData={dataCounter} />
                 </div>
               </CardContent>
             </div>

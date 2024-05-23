@@ -3,9 +3,9 @@ import { Outlet } from "react-router-dom";
 
 export function AppLayout(){
     return (
-        <div className="flex h-screen flex-col gap-4 font-medium tracking-wide text-slate-50">
+        <div className="flex h-screen flex-col gap-24 font-medium tracking-wide text-slate-50">
            <Header headerTitle="Visão Geral"/>
-            <div className="flex flex-col items-center justify-center w-full h-full mt-10">
+            <div className="flex flex-col items-center justify-center w-full h-full">
                 <Outlet />
             </div>
         </div>
