@@ -1,6 +1,4 @@
-import { PercentageChart } from "@/components/charts/pie-chart";
 import { Button } from "@/components/ui/button";
-import { CardHeader, CardContent } from "@/components/ui/card";
 import { DialogHeader } from "@/components/ui/dialog";
 import { useLoaderDataProps } from "@/routes";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -12,10 +10,10 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { SyntheticEvent, useState } from "react";
-import { useNavigate, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
+import { WaterTankCard } from "./components/watertank_card";
 
 export function DashBoard() {
-  const navigate = useNavigate();
   const { waterTanks, hidrometers } = useLoaderData() as useLoaderDataProps;
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
   const [waterTankLevel, setWaterTankLevel] = useState(5500);
@@ -77,48 +75,14 @@ export function DashBoard() {
       <div className="grid h-full w-full gap-10 md:grid-cols-1 md:grid-rows-8 md:gap-y-8 lg:grid-cols-4 lg:grid-rows-2">
         {waterTanks?.map((item, index) => {
           let hidrometerOfTank = hidrometers![index];
-          function toggleClick() {
-            navigate(
-              "/dashboard/" +
-                item.watertTankId +
-                "-" +
-                hidrometerOfTank.hidrometerId,
-            );
-          }
-
-          let distance = item.data_distance;
 
           return (
-            <div
+            <WaterTankCard
+              hidrometer={hidrometerOfTank}
               key={item.watertTankId}
-              onClick={toggleClick}
-              className="flex h-full flex-col rounded-xl border-0 shadow-lg shadow-ring transition-shadow duration-300"
-            >
-              <CardHeader className="mt-0 flex flex-row justify-around space-y-0 rounded-t-xl bg-gray-dark p-4 align-top shadow-sm md:flex-col">
-                <h3 className="text-blue-50 text-center text-lg capitalize text-white ">
-                  {item.watertTankId}
-                </h3>
-                <h3 className="text-red-300 text-md text-center font-bold capitalize text-white">
-                  {`${distance[distance.length - 1].fieldValue as number}mm`}
-                </h3>
-              </CardHeader>
-              <CardContent className="flex h-[20rem] w-full flex-col items-center justify-center p-4">
-                <span className="w-full">Nível de Alerta:</span>
-                <PercentageChart
-                  maxValue={waterTankLevel}
-                  pieChartData={[
-                    {
-                      name: "Active",
-                      value: distance[distance.length - 1].fieldValue as number,
-                    },
-                  ]}
-                  labelData={{
-                    viewBox: { cx: "50%", cy: "50%" },
-                    value: distance[distance.length - 1].fieldValue as number,
-                  }}
-                />
-              </CardContent>
-            </div>
+              waterTank={item}
+              waterTankLevel={waterTankLevel}
+            />
           );
         })}
       </div>
