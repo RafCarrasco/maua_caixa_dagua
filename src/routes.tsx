@@ -48,11 +48,6 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/admin",
         loader: loader,
-        element: <PrivateRoute element={<AdminProfile />} />,
-      },
-      {
-        path: "/dashboard/admin/manager-dashboard",
-        loader: loader,
         element: <PrivateRoute element={<ManagerDashboard />} />,
       },
     ],

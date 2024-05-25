@@ -23,7 +23,7 @@ export function Header({ headerTitle }: HeaderProps) {
           {user?.isAdmin ? (
             <div className="">
               <Link to={"/dashboard/admin"} className="flex items-center">
-                <span className="text-md font-bold">Admin</span>
+                <span className="text-md font-bold">GMS</span>
                 <PersonStandingIcon size={24} />
               </Link>
             </div>

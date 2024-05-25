@@ -10,14 +10,17 @@ import {
 } from "recharts";
 import { AreaChart } from "recharts";
 
-export function AreaChartCustom({
-  areaChartData,
-}: AreaChartProps) {
+export function AreaChartCustom({ areaChartData }: AreaChartProps) {
   return (
     <ResponsiveContainer height="100%" width="100%">
       <AreaChart data={areaChartData}>
         <CartesianGrid strokeDasharray={"3 3"} />
-        <XAxis dataKey="axisX" type="category" tickSize={5} />
+        <XAxis
+          dataKey="axisX"
+          type="category"
+          tickSize={5}
+          padding={{ left: 20, right: 20 }}
+        />
         <Tooltip
           useTranslate3d
           wrapperStyle={{ backgroundColor: "transparent" }}
@@ -25,6 +28,7 @@ export function AreaChartCustom({
         <YAxis
           tick={{ fill: "#8884d8" }}
           tickSize={10}
+          tickMargin={10}
           padding={{ bottom: 0, top: 15 }}
           stroke="#ffff"
           strokeOpacity={0.5}

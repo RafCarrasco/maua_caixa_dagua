@@ -32,7 +32,8 @@ export function LineChartCustom({
           dataKey="axisX"
           tick={{ fill: "#8884d8" }}
           tickSize={10}
-          padding={{ left: 15, right: 15 }}
+          padding={{ left: 20, right: 20 }}
+
           stroke="#ffff"
           strokeOpacity={0.5}
           strokeWidth={2}

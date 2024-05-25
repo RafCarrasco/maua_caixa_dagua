@@ -35,7 +35,6 @@ export function WaterTank() {
         axisY: distance.fieldValue as number,
       };
     });
-
     const dataBoardVoltage = waterTank!.data_boardVoltage.map(
       (boardVoltage, _) => {
         const date = new Date(boardVoltage.timestamp);
@@ -50,10 +49,10 @@ export function WaterTank() {
 
     return (
       <>
-        <div className="flex h-[120vh] w-full flex-col  items-center justify-around gap-12">
-          <div className="m-auto flex w-full flex-col items-center justify-center gap-2">
+        <div className="flex h-full w-full flex-col items-center justify-center gap-6">
+          <div className="flex h-[50%] w-full flex-col items-center  gap-2 px-24">
             <span className="pb-4 text-4xl font-bold">Hidrometer</span>
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex items-center justify-around gap-4">
               <DropdownMenu>
                 <Button className="text-md w-full rounded-md border-2 px-12 py-2">
                   {" "}
@@ -72,16 +71,15 @@ export function WaterTank() {
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
+            <div className="flex h-full w-full flex-col items-center  justify-center gap-2 p-4">
+              <span className="text-md">Grafico Board_Voltage</span>
+              <AreaChartCustom areaChartData={dataBoardVoltage} />
+            </div>
           </div>
 
-          <div className="flex flex-col items-center justify-center gap-2 border-b-2 p-4  ">
-            <span className="text-md">Grafico Board_Voltage</span>
-            <AreaChartCustom areaChartData={dataBoardVoltage} />
-          </div>
-
-          <div className="m-auto flex w-full flex-col items-center justify-center gap-2">
+          <div className="flex h-[50%] w-full flex-col items-center  gap-2 px-24">
             <span className="pb-4 text-4xl font-bold">WaterTank</span>
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex items-center justify-around gap-4">
               <DropdownMenu>
                 <Button className="text-md w-full rounded-md border-2 px-12 py-2 shadow-sm">
                   {" "}
@@ -99,14 +97,14 @@ export function WaterTank() {
                   <DropdownMenuItem>10</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            </div>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-2 border-b-2 p-4">
-            <span className="text-md">
-              Grafico Data_Distance(Milimetros de Distância da Água)
-            </span>
+            </div>{" "}
+            <div className="flex h-full w-full flex-col items-center  justify-center gap-2 p-4">
+              <span className="text-md">
+                Grafico Data_Distance(Milimetros de Distância da Água)
+              </span>
 
-            <AreaChartCustom areaChartData={dataDistance} />
+              <AreaChartCustom areaChartData={dataDistance} />
+            </div>
           </div>
         </div>
       </>

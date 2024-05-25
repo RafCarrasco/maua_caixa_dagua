@@ -34,14 +34,13 @@ export function ManagerDashboard() {
       };
     },
   );
-
   return (
-    <div className="flex h-fit flex-col justify-between gap-6 pt-6">
-      <div className="flex h-full w-full  flex-col items-center justify-center gap-4">
-        <h1 className="text-3xl font-bold">Pressão Entrada x Saída</h1>
+    <div className="flex h-full flex-col justify-between gap-6 ">
+      <div className="w-full h-1/5 flex flex-col items-center justify-center gap-2">
+        <h1 className="text-xl font-bold">Pressão Entrada x Saída</h1>
         <PressureChart pressureChartData={artesianData} />
       </div>
-      <div className=" grid h-full w-full gap-10 p-4 md:grid-cols-2 md:grid-rows-4 md:gap-y-8 lg:grid-cols-4 lg:grid-rows-2">
+      <div className="grid h-4/5 w-full gap-10 p-4 md:grid-cols-2 md:grid-rows-4 md:gap-y-8 lg:grid-cols-4 lg:grid-rows-2">
         {hidrometers?.map((hidrometer) => {
           const dataCounter = hidrometer!.data_counter.map((counter, _) => {
             const date = new Date(counter.timestamp);

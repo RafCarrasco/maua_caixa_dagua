@@ -19,9 +19,9 @@ export function CustomizedLabel({ viewBox, value }: CustomizeLabelProps) {
   );
 }
 
-export function PercentageChart({ pieChartData }: PieChartProps) {
-  const maxValue = 5500;
-  const filledValue = Math.round((pieChartData[0].value / maxValue) * 100);
+export function PercentageChart({ pieChartData, maxValue }: PieChartProps) {
+  let maxTankLevel = maxValue ?? 5500;
+  const filledValue = Math.round((pieChartData[0].value / maxTankLevel) * 100);
   const remainedValue = 100 - filledValue;
 
   const dataChart = [
@@ -51,8 +51,8 @@ export function PercentageChart({ pieChartData }: PieChartProps) {
   };
 
   return (
-    <div className="w-full h-full">
-      <ResponsiveContainer width="100%" height="100%"  >
+    <div className="h-full w-full">
+      <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Tooltip />
           <Pie

@@ -45,7 +45,7 @@ export function AdminProfile() {
 
   return (
     <>
-      <div className="flex h-full flex-col items-center justify-around">
+      <div className="flex items-start  gap-12">
         <form
           action="POST"
           className="flex flex-col items-center space-y-12 rounded-md px-4 py-8 shadow-md shadow-ring"
@@ -76,7 +76,7 @@ export function AdminProfile() {
         </form>
         <Button
           onClick={() => navigator("/dashboard/admin/manager-dashboard")}
-          className="text-md flex items-center justify-center px-12 font-bold"
+          className="text-md flex w-full items-center justify-center px-12 font-bold"
         >
           Navegar para Dashboard
         </Button>

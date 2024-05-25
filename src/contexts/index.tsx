@@ -1,6 +1,9 @@
 import { fetchArtesianWellPeriodically } from "@/api/get-artesian-well";
 import { fetchHidrometerPeriodically } from "@/api/get-hidrometer";
 import { fetchWaterTankLevelPeriodically } from "@/api/get-watertank";
+import { ArtesianWell } from "@/pages/app/entity/artesian-well";
+import { Hidrometer } from "@/pages/app/entity/hidrometer";
+import { WaterTankLevel } from "@/pages/app/entity/water-tank-level";
 import { createContext, useContext, useEffect, useState } from "react";
 
 interface ApplicationContextProps {
