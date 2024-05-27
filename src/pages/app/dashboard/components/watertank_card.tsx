@@ -9,6 +9,16 @@ interface WaterTankCardProps {
   hidrometer: Hidrometer;
   waterTankLevel: number;
 }
+function setWaterTankAlert(waterTankLevel : number,maxValue : number) {
+  const filledValue = Math.round((waterTankLevel / maxValue) * 100);
+  console.log(filledValue);
+    if (filledValue <= 15) {
+      return "Alarmante"    }
+    if (filledValue <= 50) {
+      return "Crítico"
+    }
+    return "Normal"
+}
 export function WaterTankCard({
   waterTank,
   hidrometer,
@@ -35,7 +45,7 @@ export function WaterTankCard({
         </h3>
       </CardHeader>
       <CardContent className="flex h-[20rem] w-full flex-col items-center justify-center p-4">
-        <span className="w-full">Nível de Alerta:</span>
+        <span className="w-full text-sm font-bold">Nível de Alerta:{setWaterTankAlert(waterTank.data_distance[waterTank.data_distance.length - 1].fieldValue as number,waterTankLevel)}</span>
         <PercentageChart
           maxValue={waterTankLevel}
           pieChartData={[

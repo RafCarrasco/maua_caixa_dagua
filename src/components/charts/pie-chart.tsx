@@ -1,8 +1,19 @@
 import { CustomizeLabelProps, PieChartProps } from "@/interface";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
-const COLORS = ["#D5D5D5DB", "#0F8FE4"];
+const COLORS = ["#D5D5D5DB", "#0F8FE4","#D41117","#F6FF00"];
+const urgencyPercentageLevel =15;
+const warningPercentageLevel = 50;
 
+function setChartColorForFilledValue(value: number) {
+  if (value <= urgencyPercentageLevel) {
+    return COLORS[2];
+  }
+  if (value <= warningPercentageLevel) {
+    return COLORS[3];
+  }
+  return COLORS[1];
+}
 export function CustomizedLabel({ viewBox, value }: CustomizeLabelProps) {
   const { cx, cy } = viewBox;
   return (
@@ -40,7 +51,7 @@ export function PercentageChart({ pieChartData, maxValue }: PieChartProps) {
       <text
         x={cx}
         y={cy}
-        fill="#0F8FE4"
+        fill={setChartColorForFilledValue(filledValue)}
         textAnchor="middle"
         dominantBaseline="central"
         className="text-2xl font-bold"
@@ -66,12 +77,17 @@ export function PercentageChart({ pieChartData, maxValue }: PieChartProps) {
             startAngle={90}
             endAngle={-270}
           >
-            {dataChart.map((_, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
+            {dataChart.map((_, index) => {
+                 if(index==1){
+                  return <Cell key={`cell-${index}`} fill={setChartColorForFilledValue(filledValue)} />
+                }
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+            }
+           
+            )}
           </Pie>
         </PieChart>
       </ResponsiveContainer>
