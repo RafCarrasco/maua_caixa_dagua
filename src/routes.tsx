@@ -11,7 +11,6 @@ import PrivateRoute from "./private-route";
 import { Login } from "./pages/auth/login.";
 import { fetchData } from "./api";
 import { ManagerDashboard } from "./pages/app/users/admin/manager-dashboard";
-import { AdminProfile } from "./pages/app/users/admin/profile";
 import { Hidrometer } from "./pages/app/entity/hidrometer";
 import { WaterTankLevel } from "./pages/app/entity/water-tank-level";
 import { ArtesianWell } from "./pages/app/entity/artesian-well";

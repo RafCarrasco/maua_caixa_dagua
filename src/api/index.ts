@@ -32,7 +32,7 @@ export async function loginUser(email: string, password: string): Promise<LoginR
   if (env.MODE === "development") {
     return {
       username: "admin",
-      isAdmin: true,
+      isAdmin: false,
       email: "admin@admin",
     };
   }

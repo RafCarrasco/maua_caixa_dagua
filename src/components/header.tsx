@@ -29,7 +29,7 @@ export function Header({ headerTitle }: HeaderProps) {
             </div>
           ) : (
             <>
-              <Link to={"/profile"}>Profile</Link>
+             
             </>
           )}
           <ThemeToggle />
