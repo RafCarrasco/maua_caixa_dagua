@@ -11,7 +11,6 @@ interface WaterTankCardProps {
 }
 function setWaterTankAlert(waterTankLevel : number,maxValue : number) {
   const filledValue = Math.round((waterTankLevel / maxValue) * 100);
-  console.log(filledValue);
     if (filledValue <= 15) {
       return "Alarmante"    }
     if (filledValue <= 50) {
@@ -30,6 +29,7 @@ export function WaterTankCard({
       "/dashboard/" + waterTank.watertTankId + "-" + hidrometer.hidrometerId,
     );
   }
+  
   return (
     <div
       key={waterTank.watertTankId}
