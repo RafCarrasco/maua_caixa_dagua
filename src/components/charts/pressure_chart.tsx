@@ -12,7 +12,7 @@ import {
 
 export function PressureChart({ pressureChartData }: PressureChartProps) {
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="120%">
       <BarChart
         data={pressureChartData}
         margin={{
@@ -21,7 +21,7 @@ export function PressureChart({ pressureChartData }: PressureChartProps) {
           left: 20,
           bottom: 5,
         }}
-        barSize={30}
+        barSize={50}
       >
         <XAxis
           dataKey="axisX"

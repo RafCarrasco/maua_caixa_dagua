@@ -28,7 +28,7 @@ export function HidrometerCard({ hidrometer }: HidrometeCardProps) {
           Grafico Litros Acumulados
         </h3>
       </CardHeader>
-      <CardContent className="flex h-[20rem] w-full flex-col items-center justify-around p-0">
+      <CardContent className="flex h-[16rem] w-full flex-col items-center justify-around p-0">
         <span className="text-md flex">Litros/Minuto</span>
         <div className="h-full w-full pr-4">
           <AreaChartCustom areaChartData={dataCounter} />
