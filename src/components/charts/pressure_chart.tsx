@@ -14,6 +14,7 @@ export function PressureChart({ pressureChartData }: PressureChartProps) {
   return (
     <ResponsiveContainer width="100%" height="120%">
       <BarChart
+      barCategoryGap={50}
         data={pressureChartData}
         margin={{
           top: 5,
@@ -21,7 +22,7 @@ export function PressureChart({ pressureChartData }: PressureChartProps) {
           left: 20,
           bottom: 5,
         }}
-        barSize={50}
+        barSize={30}
       >
         <XAxis
           dataKey="axisX"
